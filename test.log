@@ -1,0 +1,75 @@
+Margarets-MacBook-Pro:shopping margaretzhao$ npx cypress run --record --key f09ebd2b-212b-4442-a123-71e31d1e4030
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:    3.7.0                                                                              │
+  │ Browser:    Electron 73 (headless)                                                             │
+  │ Specs:      1 found (addItem.js)                                                               │
+  │ Params:     Group: false, Parallel: false                                                      │
+  │ Run URL:    https://dashboard.cypress.io/projects/74sp7u/runs/3                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  addItem.js                                                                      (1 of 1)
+  Estimated: 40 seconds
+
+
+  buy something from website
+    ✓ search a thing then put in basket (24035ms)
+    ✓ place order as a guest and fill in address (10608ms)
+    ✓ select payment type and verify order (16286ms)
+
+
+  3 passing (52s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        3                                                                                │
+  │ Passing:      3                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     52 seconds                                                                       │
+  │ Estimated:    40 seconds                                                                       │
+  │ Spec Ran:     addItem.js                                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Video)
+
+  -  Started processing:  Compressing to 32 CRF                                                     
+  -  Finished processing: /Users/margaretzhao/Documents/shopping/cypress/videos/addIt    (3 seconds)
+                          em.js.mp4                                                                 
+
+
+  (Uploading Results)
+
+  - Done Uploading (1/1) /Users/margaretzhao/Documents/shopping/cypress/videos/addItem.js.mp4
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  addItem.js                               00:52        3        3        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        00:52        3        3        -        -        -  
+
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                       
+  Recorded Run: https://dashboard.cypress.io/projects/74sp7u/runs/3                                    
+
+Margarets-MacBook-Pro:shopping margaretzhao$ pwd
+/Users/margaretzhao/Documents/shopping

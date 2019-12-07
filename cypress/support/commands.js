@@ -29,10 +29,17 @@ Cypress.Commands.add('loginPortal', () => {
 })
 
 Cypress.Commands.add('searchItem', () => {
+      /*
+      cy.contains('Search')
+      .click()
+      .type('cap{enter}')
+*/
+
       cy.get('.header-search-wrapper > .ng-scope > .ng-scope > .header-search > .header-search-open-trigger').click({ force: true })
       cy.get('.ng-scope > .header-search > .header-search-open-trigger > a > .header-search-open-trigger-label').click({ force: true })
       cy.get('.ng-scope > .header-search > .header-search-is-open > .ng-pristine > #searchTerm').click({ force: true })
       cy.get('.ng-scope > .header-search > .header-search-is-open > .ng-valid > #searchTerm').type('cap{enter}')
+
 })
 
 Cypress.Commands.add('addItemToBasket', () => {
