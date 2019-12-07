@@ -18,9 +18,12 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-/*
-beforeEach(function(){
-           cy.log('==== login BGP portal =======')
-           cy.loginPortal()
-           })
-*/
+before(function () {
+    cy.viewport(1431, 790)
+    cy.loginPortal()
+    //cy.get('.btn').click();
+})
+
+after(function () {
+    //cy.clearCookies() 
+})
