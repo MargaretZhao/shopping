@@ -26,32 +26,42 @@
 
 Cypress.Commands.add('loginPortal', () => {
       cy.visit(Cypress.env('baseUrl'))
+      cy.get('.btn-agree').click()
 })
 
 Cypress.Commands.add('searchItem', () => {
-      cy.get('.header-search-wrapper > .ng-scope > .ng-scope > .header-search > .header-search-open-trigger').click({ force: true })
-      cy.get('.ng-scope > .header-search > .header-search-open-trigger > a > .header-search-open-trigger-label').click({ force: true })
-      cy.get('.ng-scope > .header-search > .header-search-is-open > .ng-pristine > #searchTerm').click({ force: true })
-      cy.get('.ng-scope > .header-search > .header-search-is-open > .ng-valid > #searchTerm').type(Cypress.env('itemSearch'), { force: true })
+      cy.get('.header-search-open-trigger-label').click();
+      cy.get('#searchTerm')
+      .click({ force: true })
+      .type(Cypress.env('searchItem'));
+      //here use timeout not work, might due to resend 
+      cy.wait(10000)
+      cy.get('h3')
+            .should('contain', Cypress.env('searchedItem'))
+      cy.contains(Cypress.env('searchedItem'))
+            .click({ force: true })
 })
 
 Cypress.Commands.add('addItemToBasket', () => {
-      cy.get('h3', { timeout: 20000 })
-            .should('contain', Cypress.env('itemAdd'))
-      cy.contains(Cypress.env('itemAdd')).click({ force: true })
       cy.get('.dcp-pdp-buy-box-add-to-basket__prices-and-action', { timeout: 10000 })
             .should('contain', ' Add to basket')
-      cy.contains(' Add to basket').click({ force: true })
-      cy.get('.modal-content-to-print > .modal-body > .row > .col-xs-12 > .wb-e-btn-1').click({ force: true })
-      cy.get('.ng-scope > .dcp-co-func-footer > .dcp-co-func-footer__cta-bar > .dcp-co-func-footer__cta > .wb-e-btn-1').click({ force: true })
+      cy.contains(' Add to basket')
+            .click()
+      cy.get('[data-testid=pdp-buy-box-add-to-basket-got-to-cart]').click();
+      cy.get('[data-testid=co-func-header-forward]').click();
 })
 
 Cypress.Commands.add('placeOrderAsGuess', () => {
       cy.get('h3', { timeout: 10000 })
             .should('contain', 'Place order as guest')
-      cy.get('.dcp-order-process-login-body__section-inner > .dcp-order-process-login-panel > .dcp-order-process-login-panel__form > .form-group > #dcp-login-guest-user-email').click({ force: true })
-      cy.get('.dcp-order-process-login-body__section-inner > .dcp-order-process-login-panel > .dcp-order-process-login-panel__form > .form-group > #dcp-login-guest-user-email').type(Cypress.env('userEmail'))
-      cy.get('.dcp-order-process-login-body__section > .dcp-order-process-login-body__section-inner > .dcp-order-process-login-panel > .dcp-order-process-login-panel__form > .wb-e-btn-2').click({ force: true })
+      cy.get('[data-testid=co-order-process-login-guest-user-email]')
+            .click();
+      cy.get('[data-testid=co-order-process-login-guest-user-email]')
+            .type('{backspace}');
+      cy.get('[data-testid=co-order-process-login-guest-user-email]')
+            .type(Cypress.env('guestUserEmail'));
+      cy.get('[data-testid=co-order-process-login-guest-user-cta]')
+            .click();
 })
 
 Cypress.Commands.add('fillInAddress', () => {
@@ -59,35 +69,47 @@ Cypress.Commands.add('fillInAddress', () => {
             .then(() => {
                   cy.contains('Ms').click({ force: true })
             })
-      cy.get('.ng-scope > .dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > #co_payment_address-firstName').click({ force: true })
-      cy.get('.ng-scope > .dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > #co_payment_address-firstName').type(Cypress.env('firstNAme'))
-      cy.get('.ng-scope > .dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > #co_payment_address-lastName').click({ force: true })
-      cy.get('.ng-scope > .dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > #co_payment_address-lastName').type(Cypress.env('lastName'))
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-line2').click({ force: true })
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-line2').type(Cypress.env('addrUnit'))
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-line1').click({ force: true })
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-line1').type(Cypress.env('addrStreet'))
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-postalCode').click({ force: true })
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-town').click({ force: true })
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-town').type(Cypress.env('addrTown'))
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-postalCode').click({ force: true })
-      cy.get('.dcp-utils-dynamic-form > .dcp-form > .dcp-form__group > .dcp-form__group > #co_payment_address-postalCode').type(Cypress.env('addrPastalCode'))
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-firstName]')
+            .click();
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-firstName]')
+            .type(Cypress.env('paymentFirstName'));
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-lastName]')
+            .click();
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-lastName]')
+            .type(Cypress.env('paymentLastName'));
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-line2]')
+            .click();
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-line2]')
+            .type(Cypress.env('paymentAddrLine1'));
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-line1]')
+            .click();
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-line1]')
+            .type(Cypress.env('paymentAddrLine2'));
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-town]')
+            .click();
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-town]')
+            .type(Cypress.env('paymentTown'));
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-postalCode]')
+            .click();
+      cy.get('[data-testid=dcp-schema-form-default_co_payment_address-postalCode]')
+            .type(Cypress.env('paymentPostalCode'));
+      cy.get('[data-testid=co-func-footer-forward]')
+            .click();
 })
 
 Cypress.Commands.add('selectPaymentType', () => {
-      //cy.get('.dcp-form-date-group', { timeout: 20000 })
-      cy.get('[data-testid=co-address-payment]', { timeout: 20000 })
-            .then(() => {
-                cy.get('[data-testid=co-func-footer-forward]').click({ force: true })
-            })
-
-        cy.get('h3', { timeout: 15000 })
+      cy.get('h3', { timeout: 20000 })
             .should('contain', 'Your payment type')
-      cy.get('.form-group:nth-child(1) > .dcp-co-payment-modes-overview__item > .dcp-co-payment-modes__radio-wrapper > .wb-e-radio-1__wrapper > .wb-e-radio-1__label').click({ force: true })
-      cy.get('.form-group > .dcp-co-payment-modes-overview__item > .dcp-co-payment-modes__radio-wrapper > .wb-e-radio-1__wrapper > #dcp-co-payment-modes_options-CREDITCARD').type(Cypress.env('payType'))
-      cy.get('.form-group > .form-group > .dcp-co-payment-modes__sub-items > .wb-e-radio-1__wrapper:nth-child(2) > .wb-e-radio-1__label').click({ force: true })
-      cy.get('.form-group > .form-group > .dcp-co-payment-modes__sub-items > .wb-e-radio-1__wrapper > #mastercard').type(Cypress.env('cardTypre'))
-      cy.get('.ng-scope > .dcp-co-func-footer > .dcp-co-func-footer__cta-bar > .dcp-co-func-footer__cta > .wb-e-btn-1').click({ force: true })
+      cy.get('[data-testid=dcp-co-payment-modes_options-CREDITCARD-label]')
+            .click();
+      cy.get('[data-testid=co-payment-options-CREDITCARD]')
+            .click({ force: true });
+      cy.get('[data-testid=dcp-co-payment-modes_options-mastercard-label]')
+            .click();
+      cy.get('[data-testid=co-payment-options-mastercard]')
+            .click({ force: true });
+      cy.get('[data-testid=co-func-footer-forward]')
+            .click();
 })
 
 

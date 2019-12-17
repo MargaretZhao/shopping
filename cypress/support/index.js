@@ -21,7 +21,6 @@ import './commands'
 before(function () {
     cy.viewport(1431, 790)
     cy.loginPortal()
-    //cy.get('.btn').click();
 })
 
 after(function () {
